@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="352.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <children>
+      <GridPane layoutX="46.0" layoutY="140.0" prefHeight="192.0" prefWidth="287.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="substract" mnemonicParsing="false" onAction="#isSubstractPressed" prefHeight="64.0" prefWidth="102.0" text="Substract" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="four" mnemonicParsing="false" onAction="#setFour" prefHeight="64.0" prefWidth="102.0" text="4" GridPane.rowIndex="1" />
+            <Button fx:id="two" mnemonicParsing="false" onAction="#setTwo" prefHeight="64.0" prefWidth="102.0" text="2" GridPane.columnIndex="1" />
+            <Button fx:id="three" mnemonicParsing="false" onAction="#setThree" prefHeight="64.0" prefWidth="102.0" text="3" GridPane.columnIndex="2" />
+            <Button fx:id="addition" mnemonicParsing="false" onAction="#isAdditionPressed" prefHeight="70.0" prefWidth="110.0" text="Addition" underline="true" GridPane.columnIndex="3">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="nine" mnemonicParsing="false" onAction="#setNine" prefHeight="64.0" prefWidth="102.0" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="six" mnemonicParsing="false" onAction="#setSix" prefHeight="64.0" prefWidth="102.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="eight" mnemonicParsing="false" onAction="#setEight" prefHeight="64.0" prefWidth="102.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="one" mnemonicParsing="false" onAction="#setOne" prefHeight="64.0" prefWidth="102.0" text="1" />
+            <Button fx:id="five" mnemonicParsing="false" onAction="#setFive" prefHeight="64.0" prefWidth="102.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="seven" mnemonicParsing="false" onAction="#setSeven" prefHeight="64.0" prefWidth="102.0" text="7" GridPane.rowIndex="2" />
+            <Button fx:id="square" mnemonicParsing="false" onAction="#isSquarePressed" prefHeight="64.0" prefWidth="102.0" text="Square" underline="true" GridPane.columnIndex="4">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="simplify" mnemonicParsing="false" onAction="#isSimplifyPressed" prefHeight="64.0" prefWidth="102.0" text="Simplify" underline="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="division" mnemonicParsing="false" onAction="#isDivisionPressed" prefHeight="64.0" prefWidth="102.0" text="Division" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="multiply" mnemonicParsing="false" onAction="#isMultiplyPressed" prefHeight="64.0" prefWidth="102.0" text="multiply" underline="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+      <Pane layoutX="46.0" layoutY="20.0" prefHeight="115.0" prefWidth="287.0" style="-fx-background-color: Yellow;">
+         <children>
+            <TextField fx:id="numerator1" editable="false" layoutX="14.0" layoutY="14.0" onMouseClicked="#isClickedNumerator1" prefHeight="25.0" prefWidth="57.0" />
+            <TextField fx:id="denominator1" editable="false" layoutX="14.0" layoutY="64.0" onMouseClicked="#isClickedDenominator1" prefHeight="25.0" prefWidth="57.0" />
+            <TextField fx:id="operation" editable="false" layoutX="82.0" layoutY="39.0" prefHeight="25.0" prefWidth="42.0" visible="false" />
+            <TextField fx:id="numerator2" editable="false" layoutX="124.0" layoutY="14.0" onMouseClicked="#isClickedNumerator2" prefHeight="25.0" prefWidth="57.0" visible="false" />
+            <TextField fx:id="denominator2" editable="false" layoutX="124.0" layoutY="64.0" onMouseClicked="#isClickedDenominator2" prefHeight="25.0" prefWidth="57.0" visible="false" />
+            <TextField fx:id="equals" alignment="CENTER" editable="false" layoutX="181.0" layoutY="39.0" prefHeight="25.0" prefWidth="42.0" text="=" visible="false" />
+            <TextField fx:id="numeratorResult" editable="false" layoutX="223.0" layoutY="14.0" onMouseClicked="#isClickedNumerator1" prefHeight="25.0" prefWidth="57.0" visible="false" />
+            <TextField fx:id="denominatorResult" editable="false" layoutX="223.0" layoutY="64.0" onMouseClicked="#isClickedDenominator1" prefHeight="25.0" prefWidth="57.0" visible="false" />
+         </children>
+      </Pane>
+      <Button fx:id="go" layoutX="333.0" layoutY="140.0" mnemonicParsing="false" onAction="#isGoPressed" text="Go" />
+      <Button fx:id="back" layoutX="333.0" layoutY="164.0" mnemonicParsing="false" onAction="#isBackPressed" text="Back" />
+   </children>
+</Pane>
