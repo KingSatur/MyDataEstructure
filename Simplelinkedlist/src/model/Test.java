@@ -73,6 +73,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
+		CampiHash<CampiList<Player>> list = new CampiHash<CampiList<Player>>();		
 	}
 	
 	
