@@ -6,7 +6,7 @@ public class CampiHash<T> {
 	private T[] array;
 	private final int length = 100;
 
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public CampiHash() {
 		array = (T[]) new Object[length];	
 	}
