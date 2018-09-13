@@ -2,19 +2,18 @@ package model;
 
 public class CampiHash<T> {
 	
+//	private Object[] array;
 	private T[] array;
-	private final int length = 1000;
+	private final int length = 100;
 
+//	@SuppressWarnings("unchecked")
 	public CampiHash() {
-		array = (T[])new Object[length];
+		array = (T[]) new Object[length];	
 	}
 	
-	public T[] getHash() {
-		return array;
+	public <T>  T[] getHash() {
+		return (T[]) array;
 	}
 	
-	public T getHashPosition(int index) {
-		return array[index];
-	}
-	
+
 }

@@ -6,7 +6,7 @@ import tda.InterfaceCampiList;
 import tda.InterfaceCampiQueue;
 import tda.InterfaceCampiStack;
 
-public class CampiList<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T>, InterfaceCampiStack<T> {
+public class CampiList<T > implements InterfaceCampiList<T>, InterfaceCampiQueue<T>, InterfaceCampiStack<T> {
 
 	private Node<T> firstNode;
 	private int size;

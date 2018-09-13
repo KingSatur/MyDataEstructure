@@ -73,7 +73,20 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
-		CampiHash<CampiList<Player>> list = new CampiHash<CampiList<Player>>();		
+		CampiHash<CampiList<Player>> hash = new  CampiHash<CampiList<Player>>();
+		hash.getHash()[0] = new CampiList<Player>();
+
+		if(hash.getHash()[0] instanceof CampiList) {
+			 ((CampiList)hash.getHash()[0]).addElement(new Player("alberto", 1));   
+		}
+		
+		
+		
+
+//		hash.get(0).addElement(new Player("Juan",90));
+//		System.out.println(hash.get(0).getFirstNode().getData().getName());
+//		
+		
 	}
 	
 	
