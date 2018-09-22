@@ -1,19 +1,25 @@
 package model;
 
+import java.lang.reflect.Array;
+
 public class CampiHash<T> {
 	
-//	private Object[] array;
-	private T[] array;
-	private final int length = 100;
+	T[] array;
 
 	@SuppressWarnings("unchecked")
-	public CampiHash() {
-		array = (T[]) new Object[length];	
+	public CampiHash(Class c , int length) {
+		array = (T[]) Array.newInstance(c, length);
 	}
 	
-	public <T>  T[] getHash() {
+	public T[] getArray() {
 		return (T[]) array;
 	}
 	
+	public T[] getHash() {
+		return (T[]) array;
+	}
 
+	public int hashFunction(int n) {
+		return n;
+	}
 }
