@@ -14,7 +14,6 @@ public class Batmannacci {
 		campiHash = new CampiHash<Integer>(Integer.class, n);
 	}
 
-
 	public int batmanacciCampiHash(int n) {
 
 		int a = 0;
@@ -42,8 +41,6 @@ public class Batmannacci {
 		}
 	}
 		
-		
-
 	public int getN() {
 		return n;
 	}
@@ -60,7 +57,45 @@ public class Batmannacci {
 		this.k = k;
 	}
 
+	public String printString(int n) {
+		
+		String a = "";
+		
+		if(n == 1) {
+			a += "N";
+			return a;
+		}
+		if(n == 2) {
+			a += "A";
+			return a;
+		}
+		else {
+			a += printString(n - 2) + printString(n - 1);
+			return a;
+		}		
+	}
 
-
+	public int pos(int n) {
+		
+		if(n == 1) {
+			return n;
+		}
+		if(n == 2) {
+			return n;
+		}
+		else {
+			if(n > campiHash.get(n - 2)) {
+				n = n - (campiHash.get(n) - campiHash.get(n - 1)); 
+				return n;
+			}
+			if(n < campiHash.get(n - 2)) {
+				n = n - (campiHash.get(n - 1) - campiHash.get(n - 2));
+				return n;
+			}
+			else {
+				return pos(n - 1);
+			}
+		}		
+	}
 	
 }
