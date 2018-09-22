@@ -20,6 +20,14 @@ public class CampiHash<T> {
 	}
 
 	public int hashFunction(int n) {
-		return n;
+		return n - 1;
+	}
+	
+	public void put(int n, T t) {
+		array[n] = t;
+	}
+	
+	public T get(int n) {
+		return array[n];
 	}
 }
