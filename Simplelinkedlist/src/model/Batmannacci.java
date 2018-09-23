@@ -5,21 +5,20 @@ import java.util.Hashtable;
 public class Batmannacci {
 	
 	private int n;
-	private int k;
-	private CampiHash<Integer> campiHash;
+	private CampiHash<Long> campiHash;
 	
-	public Batmannacci(int n, int k) {
+	public Batmannacci(int n) {
 		this.n = n;
-		this.k = k;
-		campiHash = new CampiHash<Integer>(Integer.class, n);
+		campiHash = new CampiHash<Long>(Long.class, n);
+		batmanacci(n);
 	}
 
-	public int batmanacciCampiHash(int n) {
+	public long batmanacci(long n) {
 
-		int a = 0;
+		long a = 0;
 		
-		if(campiHash.get(n - 1) != null) {
-			a = campiHash.get(n - 1);
+		if(campiHash.get(n) != null) {
+			a = campiHash.get(n);
 			return a;
 		}
 		else {
@@ -34,7 +33,7 @@ public class Batmannacci {
 				return a;
 			}
 			else {
-				a = batmanacciCampiHash(n - 2) + batmanacciCampiHash(n - 1);
+				a = batmanacci(n - 2) + batmanacci(n - 1);
 				campiHash.put(n - 1, a);
 				return a;
 			}
@@ -48,13 +47,9 @@ public class Batmannacci {
 	public void setN(int n) {
 		this.n = n;
 	}
-
-	public int getK() {
-		return k;
-	}
-
-	public void setK(int k) {
-		this.k = k;
+	
+	public long getFib(long n) {
+		return campiHash.get(n);
 	}
 
 	public String printString(int n) {
@@ -75,8 +70,8 @@ public class Batmannacci {
 		}		
 	}
 
-	public int pos(int n) {
-		
+	public long pos(long n, int fib) {
+				
 		if(n == 1) {
 			return n;
 		}
@@ -84,18 +79,24 @@ public class Batmannacci {
 			return n;
 		}
 		else {
-			if(n > campiHash.get(n - 2)) {
-				n = n - (campiHash.get(n) - campiHash.get(n - 1)); 
-				return n;
-			}
-			if(n < campiHash.get(n - 2)) {
-				n = n - (campiHash.get(n - 1) - campiHash.get(n - 2));
-				return n;
+			if(n > campiHash.get(fib - 2)) {
+				n = n - (campiHash.get(fib) - campiHash.get(fib - 1));
+				return pos(n, fib - 1);
 			}
 			else {
-				return pos(n - 1);
+				return pos(n, fib - 2);
 			}
 		}		
 	}
 	
+	public String batman(int a, int b) {
+			
+		batmanacci(a);
+		if(pos(b, a) == 1) {
+			return "N";
+		}
+		else {
+			return "A";
+		}
+	}
 }

@@ -23,11 +23,11 @@ public class CampiHash<T> {
 		return n - 1;
 	}
 	
-	public void put(int n, T t) {
-		array[n] = t;
+	public void put(long n, T t) {
+		array[(int) n] = t;
 	}
 	
-	public T get(int n) {
-		return array[n];
+	public T get(long n) {
+		return array[(int) (n - 1)];
 	}
 }
