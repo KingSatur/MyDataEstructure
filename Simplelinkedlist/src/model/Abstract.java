@@ -6,12 +6,12 @@ import tda.InterfaceCampiList;
 import tda.InterfaceCampiQueue;
 import tda.InterfaceCampiStack;
 
-public class CampiList<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T>, InterfaceCampiStack<T> {
+public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T>, InterfaceCampiStack<T> {
 
 	private Node<T> firstNode;
 	private int size;
 	
-	public CampiList() {
+	public Abstract() {
 		firstNode = null;
 		size = 0;
 	}
@@ -168,6 +168,20 @@ public class CampiList<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<
 		return before;
 	}
 	
+	
+	public Node<T> searchLastElement(){
+		
+		Node<T> actually = firstNode;
+		
+		while(actually.getNextElement() != null) {
+			actually = actually.getNextElement();
+		}
+		
+		return actually;
+	}
+	
+	
+	
 	public Node<T> searchElementAfter(T element){
 		
 		Node<T> temporally = firstNode;
@@ -215,12 +229,14 @@ public class CampiList<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<
 ///////////////////////////////////////////////////////////////////////////	
 	//Metodos de pila
 	@Override
-	public void push(Node<T> node) {
+	public void push(T data) {
 		
 		if(this.getFirstNode() == null) {
+			Node<T> node = new Node<T>(data);
 			firstNode = node;
 		}
 		else {
+			Node<T> node = new Node<T>(data);
 			node.setNextElement(firstNode);
 			firstNode = node;
 		}
@@ -232,19 +248,25 @@ public class CampiList<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<
 	}
 
 	@Override
-	public void pop()throws StackEmptyException {
+	public T pop()throws StackEmptyException {
+		
+		T dataDeleted = null;
 		
 		if(isEmpty()) {
 			throw new StackEmptyException("La pila esta vacia");
 		}
 		else {
 			if(top().getNextElement() == null) {
+				dataDeleted = top().getData();
 				firstNode = null;
 			}
 			else {
+				dataDeleted = firstNode.getData();
 				firstNode = firstNode.getNextElement();
 			}
-		}	
+		}
+		
+		return dataDeleted;
 	}
 
 	
@@ -252,20 +274,58 @@ public class CampiList<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<
 	//Metodos de cola
 	@Override
 	public Node<T> front() {
-		// TODO Auto-generated method stub
-		return null;
+		return firstNode;
 	}
 
 	@Override
-	public void enqueue(Node<T> node) {
-		// TODO Auto-generated method stub
+	public void enqueue(T data) {
 		
+		Node<T> nodeToEnqueue = new Node<T>(data);
+		
+		if(firstNode == null) {
+			firstNode = nodeToEnqueue;
+			size ++;
+		}
+		else {
+			if(firstNode.getNextElement() == null) {
+				size++;
+				nodeToEnqueue.setPosition(size - 1);
+				firstNode.setNextElement(nodeToEnqueue);
+			}
+			else {
+				Node<T> temporallyNode = firstNode;
+				while(temporallyNode.getNextElement() != null) {
+					temporallyNode = temporallyNode.getNextElement();
+				}
+				size++;
+				nodeToEnqueue.setPosition(size - 1);
+				temporallyNode.setNextElement(nodeToEnqueue);
+			}
+		}
 	}
 
 	@Override
-	public Node<T> dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+	public T dequeue()throws StackEmptyException {
+		
+		T dataDeleted = null;
+
+		if(isEmpty()) {
+			throw new StackEmptyException("La cola esta vacia");
+		}
+		else {
+			if(front().getNextElement() == null) {
+				dataDeleted = front().getData();
+				firstNode = null;
+				size --;
+			}
+			else {
+				firstNode = firstNode.getNextElement();
+				size--;
+			}
+		}
+						
+		return dataDeleted;
+		
 	}
 	
 	

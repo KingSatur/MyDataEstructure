@@ -1,14 +1,15 @@
 package tda;
 
+import exceptions.StackEmptyException;
 import model.Node;
 
 public interface InterfaceCampiQueue<T> {
 
 	public Node<T> front();
 	
-	public void enqueue(Node<T> node);
+	public void enqueue(T data);
 	
-	public Node<T> dequeue();
+	public T dequeue()throws StackEmptyException;
 	
 	public boolean isEmpty();
 	
