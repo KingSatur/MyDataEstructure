@@ -234,11 +234,13 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		if(this.getFirstNode() == null) {
 			Node<T> node = new Node<T>(data);
 			firstNode = node;
+			size++;
 		}
 		else {
 			Node<T> node = new Node<T>(data);
 			node.setNextElement(firstNode);
 			firstNode = node;
+			size++;
 		}
 	}
 
@@ -259,10 +261,12 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 			if(top().getNextElement() == null) {
 				dataDeleted = top().getData();
 				firstNode = null;
+				size--;
 			}
 			else {
 				dataDeleted = firstNode.getData();
 				firstNode = firstNode.getNextElement();
+				size--;
 			}
 		}
 		
@@ -288,18 +292,18 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		}
 		else {
 			if(firstNode.getNextElement() == null) {
-				size++;
 				nodeToEnqueue.setPosition(size - 1);
 				firstNode.setNextElement(nodeToEnqueue);
+				size++;
 			}
 			else {
 				Node<T> temporallyNode = firstNode;
 				while(temporallyNode.getNextElement() != null) {
 					temporallyNode = temporallyNode.getNextElement();
 				}
-				size++;
 				nodeToEnqueue.setPosition(size - 1);
 				temporallyNode.setNextElement(nodeToEnqueue);
+				size++;
 			}
 		}
 	}
@@ -319,6 +323,7 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 				size --;
 			}
 			else {
+				dataDeleted = front().getData();
 				firstNode = firstNode.getNextElement();
 				size--;
 			}
@@ -326,7 +331,6 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 						
 		return dataDeleted;
 		
-	}
-	
-	
+	}	
+
 }

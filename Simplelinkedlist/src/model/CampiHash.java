@@ -2,32 +2,85 @@ package model;
 
 import java.lang.reflect.Array;
 
-public class CampiHash<T> {
-	
-	T[] array;
+import tda.InterfaceCampiHash;
+import tda.InterfaceCampiQueue;
 
+public class CampiHash<K,T> implements InterfaceCampiHash<K, T> {
+	
+	private NodeHash<K, T>[] array;
+	private int size;
+	
 	@SuppressWarnings("unchecked")
-	public CampiHash(Class c , int length) {
-		array = (T[]) Array.newInstance(c, length);
+	public CampiHash(int length) {
+		size = length;
+		array = new NodeHash[length];
 	}
 	
-	public T[] getArray() {
-		return (T[]) array;
-	}
 	
-	public T[] getHash() {
-		return (T[]) array;
+	@Override
+	public boolean isEmpty() {
+		return false;
 	}
 
-	public int hashFunction(int n) {
-		return n - 1;
+	@Override
+	public int tableLength() {
+		return 0;
+	}
+
+	@Override
+	public void tableInsert(T data) {
+		
+	}
+
+	@Override
+	public void tableDelete(K key) {		
+		
+	}
+
+	@Override
+	public T tableRetrieve(K key) {
+		
+		return null;
 	}
 	
-	public void put(long n, T t) {
-		array[(int) n] = t;
+	public int hashFunction(K key) {
+		
+		return 0;
+		
 	}
 	
-	public T get(long n) {
-		return array[(int) (n - 1)];
+	
+	
+	public NodeHash<K, T>[] getArray() {
+		return array;
 	}
+
+
+	public void setArray(NodeHash<K, T>[] array) {
+		this.array = array;
+	}
+
+
+	public int getSize() {
+		return size;
+	}
+
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public void crear() {
+			
+	}
+	
+
+//	public static void main(String[] args) {
+//		CampiHash<String, InterfaceCampiQueue<Integer>> m = new CampiHash<String, InterfaceCampiQueue<Integer>>(40);
+//		m.crear(30);
+//		
+//		System.out.println(m.size);
+//		
+//	}
+	
 }

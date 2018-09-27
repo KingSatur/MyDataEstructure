@@ -13,6 +13,7 @@ public interface InterfaceCampiQueue<T> {
 	
 	public boolean isEmpty();
 	
+	public int getSize();
 	
 	
 }

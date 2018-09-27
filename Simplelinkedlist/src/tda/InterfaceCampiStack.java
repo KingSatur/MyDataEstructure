@@ -16,7 +16,7 @@ public interface InterfaceCampiStack<T> {
 	
 	public boolean isArmonic(char a, char b);
 
-	
+	public int getSize();
 	
 	
 }
