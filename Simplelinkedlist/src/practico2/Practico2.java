@@ -1,4 +1,4 @@
-package Practico2;
+package practico2;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

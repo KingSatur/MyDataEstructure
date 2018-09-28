@@ -1,4 +1,4 @@
-package Practico2;
+package practico2;
 
 public class Comprador {
 
