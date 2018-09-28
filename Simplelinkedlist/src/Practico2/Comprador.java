@@ -26,4 +26,11 @@ public class Comprador {
 		this.numeroCompras = numeroCompras;
 	}
 	
+	public void restarCompras() {
+		numeroCompras --;
+	}
+	
+	public void sumarCompras() {
+		numeroCompras ++;
+	}
 }
