@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class Player {
+public class Player implements Comparable<Player>{
 
 	private String name;
 	private int level;
@@ -24,6 +24,16 @@ public class Player {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	@Override
+	public int compareTo(Player o) {
+		if(this.getLevel() > o.getLevel()) {
+			return 1;
+		}
+		else {
+			return -1;
+		}
 	}
 	
 	
