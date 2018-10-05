@@ -1,8 +1,8 @@
 package practico2;
 
+import dataStructures.Abstract;
+import dataStructures.NodeAbstract;
 import exceptions.StackEmptyException;
-import model.Abstract;
-import model.Node;
 import tda.InterfaceCampiQueue;
 
 public class Cajero {
@@ -51,7 +51,7 @@ public class Cajero {
 	public void calcularTiempoDemora() {
 		
 		tiempoDemora = 0;
-		Node<Comprador> actually = colaCompradores.front();
+		NodeAbstract<Comprador> actually = colaCompradores.front();
 		
 		if(actually.getNextElement() == null) {
 			tiempoDemora = actually.getData().getNumeroCompras();

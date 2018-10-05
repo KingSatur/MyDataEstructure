@@ -1,25 +1,28 @@
-package model;
+package dataStructures;
 
-public class Node<K> {
+public class NodeAbstract<K> {
 
 	private K data;
-	private Node<K> nextElement;
+	private NodeAbstract<K> nextElement;
 	private int position;
 	
-	public Node(K data) {
+	public NodeAbstract(K data) {
 		this.data = data;
 	}
-	//////////////u
+	
 	public K getData() {
 		return data;
 	}
+	
 	public void setData(K data) {
 		this.data = data;
 	}
-	public Node<K> getNextElement() {
+	
+	public NodeAbstract<K> getNextElement() {
 		return nextElement;
 	}
-	public void setNextElement(Node<K> nextElement) {
+	
+	public void setNextElement(NodeAbstract<K> nextElement) {
 		this.nextElement = nextElement;
 	}
 

@@ -1,7 +1,7 @@
 package tda;
 
+import dataStructures.NodeAbstract;
 import exceptions.StackEmptyException;
-import model.Node;
 
 public interface InterfaceCampiStack<T> {
 
@@ -10,7 +10,7 @@ public interface InterfaceCampiStack<T> {
 	
 	public boolean isEmpty();
 	
-	public Node<T> top();
+	public NodeAbstract<T> top();
 	
 	public T pop() throws StackEmptyException;
 	

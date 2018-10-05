@@ -1,4 +1,4 @@
-package model;
+package dataStructures;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -151,7 +151,7 @@ public class Practico {
 		
 		String a = "";
 		
-		Node<Character> actually = pilaGranja.top();
+		NodeAbstract<Character> actually = pilaGranja.top();
 		
 		if(actually.getNextElement() == null) {
 			a += actually.getData();

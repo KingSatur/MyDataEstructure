@@ -1,4 +1,4 @@
-package model;
+package dataStructures;
 
 import exceptions.IndexOutOfRangeException;
 import exceptions.StackEmptyException;
@@ -8,7 +8,7 @@ import tda.InterfaceCampiStack;
 
 public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T>, InterfaceCampiStack<T> {
 
-	private Node<T> firstNode;
+	private NodeAbstract<T> firstNode;
 	private int size;
 	
 	public Abstract() {
@@ -35,11 +35,11 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////	
 	//Metodos de lista
-	public Node<T> getFirstNode() {
+	public NodeAbstract<T> getFirstNode() {
 		return firstNode;
 	}
 
-	public void setFirstNode(Node<T> firstNode) {
+	public void setFirstNode(NodeAbstract<T> firstNode) {
 		this.firstNode = firstNode;
 	}
 
@@ -47,7 +47,7 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 	public void addElement(T element) {
 		
 		if(firstNode == null) {
-			Node<T> newNode = new Node<T>(element);
+			NodeAbstract<T> newNode = new NodeAbstract<T>(element);
 			size++;
 			newNode.setPosition(size - 1);
 			firstNode = newNode;
@@ -55,17 +55,17 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		}
 		else {
 			if(firstNode.getNextElement() == null) {
-				Node<T> newNode = new Node<T>(element);
+				NodeAbstract<T> newNode = new NodeAbstract<T>(element);
 				size++;
 				newNode.setPosition(size - 1);
 				firstNode.setNextElement(newNode);
 			}
 			else {
-				Node<T> temporallyNode = firstNode;
+				NodeAbstract<T> temporallyNode = firstNode;
 				while(temporallyNode.getNextElement() != null) {
 					temporallyNode = temporallyNode.getNextElement();
 				}
-				Node<T> newNode = new Node<T>(element);
+				NodeAbstract<T> newNode = new NodeAbstract<T>(element);
 				size++;
 				newNode.setPosition(size - 1);
 				temporallyNode.setNextElement(newNode);
@@ -77,7 +77,7 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 	public void deleteElement(int position)throws IndexOutOfRangeException {
 		
 		if(position >= 0 && position < size) {
-			Node<T> temporally = firstNode;
+			NodeAbstract<T> temporally = firstNode;
 			if(temporally.getPosition() == position) {
 				if(searchElementAfter(temporally.getData()) != null) {
 					substractPosition(temporally);
@@ -95,12 +95,12 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 					if(temporally.getPosition() == position) {
 						if(searchElementAfter(temporally.getData()) != null) {
 							substractPosition(temporally);
-							Node<T> before = searchElementBefore(temporally.getData());
+							NodeAbstract<T> before = searchElementBefore(temporally.getData());
 							before.setNextElement(searchElementAfter(temporally.getData()));
 							back = true;
 						}
 						else {
-							Node<T> before = searchElementBefore(temporally.getData());
+							NodeAbstract<T> before = searchElementBefore(temporally.getData());
 							before.setNextElement(null);
 							back = true;
 						}
@@ -118,12 +118,12 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 	}
 
 	@Override
-	public Node<T> searchElement(int position)throws IndexOutOfRangeException {
+	public NodeAbstract<T> searchElement(int position)throws IndexOutOfRangeException {
 	
-		Node<T> toReturn = null;
+		NodeAbstract<T> toReturn = null;
  		
 		if(position >= 0 && position < size) {
-			Node<T> temporally = firstNode;
+			NodeAbstract<T> temporally = firstNode;
 			if(temporally.getPosition() == position) {
 				toReturn = temporally;
 			}
@@ -147,10 +147,10 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		return toReturn;
 	}
 	
-	public Node<T> searchElementBefore(T element) {
+	public NodeAbstract<T> searchElementBefore(T element) {
 		
-		Node<T> temporally = firstNode;
-		Node<T> before = null;
+		NodeAbstract<T> temporally = firstNode;
+		NodeAbstract<T> before = null;
 
 		boolean back = false;
 		while(temporally.getNextElement() != null && !back) {
@@ -168,10 +168,9 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		return before;
 	}
 	
-	
-	public Node<T> searchLastElement(){
+	public NodeAbstract<T> searchLastElement(){
 		
-		Node<T> actually = firstNode;
+		NodeAbstract<T> actually = firstNode;
 		
 		while(actually.getNextElement() != null) {
 			actually = actually.getNextElement();
@@ -180,12 +179,10 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		return actually;
 	}
 	
-	
-	
-	public Node<T> searchElementAfter(T element){
+	public NodeAbstract<T> searchElementAfter(T element){
 		
-		Node<T> temporally = firstNode;
-		Node<T> after = null;
+		NodeAbstract<T> temporally = firstNode;
+		NodeAbstract<T> after = null;
 		
 		boolean back = false;
 		while(temporally.getNextElement() != null && !back) {
@@ -211,9 +208,9 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		return firstNode == null;
 	}
 	
-	public void substractPosition(Node<T> a) {
+	public void substractPosition(NodeAbstract<T> a) {
 		
-		Node<T> temporally = a;
+		NodeAbstract<T> temporally = a;
 		
 		if(temporally != null) {
 			if(temporally.getNextElement() != null) {
@@ -232,12 +229,12 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 	public void push(T data) {
 		
 		if(this.getFirstNode() == null) {
-			Node<T> node = new Node<T>(data);
+			NodeAbstract<T> node = new NodeAbstract<T>(data);
 			firstNode = node;
 			size++;
 		}
 		else {
-			Node<T> node = new Node<T>(data);
+			NodeAbstract<T> node = new NodeAbstract<T>(data);
 			node.setNextElement(firstNode);
 			firstNode = node;
 			size++;
@@ -245,7 +242,7 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 	}
 
 	@Override
-	public Node<T> top() {
+	public NodeAbstract<T> top() {
 		return firstNode;
 	}
 
@@ -273,18 +270,17 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 		return dataDeleted;
 	}
 
-	
 ///////////////////////////////////////////////////////////////////////////
 	//Metodos de cola
 	@Override
-	public Node<T> front() {
+	public NodeAbstract<T> front() {
 		return firstNode;
 	}
 
 	@Override
 	public void enqueue(T data) {
 		
-		Node<T> nodeToEnqueue = new Node<T>(data);
+		NodeAbstract<T> nodeToEnqueue = new NodeAbstract<T>(data);
 		
 		if(firstNode == null) {
 			firstNode = nodeToEnqueue;
@@ -297,7 +293,7 @@ public class Abstract<T> implements InterfaceCampiList<T>, InterfaceCampiQueue<T
 				size++;
 			}
 			else {
-				Node<T> temporallyNode = firstNode;
+				NodeAbstract<T> temporallyNode = firstNode;
 				while(temporallyNode.getNextElement() != null) {
 					temporallyNode = temporallyNode.getNextElement();
 				}

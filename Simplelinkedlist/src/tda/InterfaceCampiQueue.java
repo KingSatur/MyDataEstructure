@@ -1,11 +1,11 @@
 package tda;
 
+import dataStructures.NodeAbstract;
 import exceptions.StackEmptyException;
-import model.Node;
 
 public interface InterfaceCampiQueue<T> {
 
-	public Node<T> front();
+	public NodeAbstract<T> front();
 	
 	public void enqueue(T data);
 	

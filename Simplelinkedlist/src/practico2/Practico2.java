@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import dataStructures.CampiHash;
 import exceptions.StackEmptyException;
-import model.CampiHash;
 
 public class Practico2 {
 
