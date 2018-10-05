@@ -61,7 +61,7 @@ public class CampiTreeEnari<T> implements InterfaceCampiTreeEnari<T>{
 			}
 		}
 		
-		
+		wrfwefwefewf
 		
 	}
 
