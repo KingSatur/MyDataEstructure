@@ -23,7 +23,7 @@ public class NodeEnari<T extends Comparable<T>> implements Comparable<NodeEnari<
 		sons.addElement(node);
 	}
 
-	public T getData() {
+	public T getInfo() {
 		return data;
 	}
 
@@ -34,19 +34,7 @@ public class NodeEnari<T extends Comparable<T>> implements Comparable<NodeEnari<
 
 	@Override
 	public int compareTo(NodeEnari<T> o) {
-		return this.getData().compareTo(o.getData());
+		return this.getInfo().compareTo(o.getInfo());
 	}
-
-	public static void main(String[] args) {		
-
-		NodeEnari<Player> m = new NodeEnari<Player>(new Player("Juanda",20));
-		NodeEnari<Player> m1 = new NodeEnari<Player>(new Player("Malparido",15));
-		System.out.println(m.compareTo(m1));
-		
-		
-		
-	}
-
-
 
 }
