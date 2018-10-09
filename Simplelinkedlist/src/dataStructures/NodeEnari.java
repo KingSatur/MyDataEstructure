@@ -14,6 +14,7 @@ public class NodeEnari<T extends Comparable<T>> implements Comparable<NodeEnari<
 	public InterfaceCampiList<NodeEnari<T>> getSons() {
 		return sons;
 	}
+	werwerwerwerqrwqwer
 	
 	public void setSons(InterfaceCampiList<NodeEnari<T>> sons) {
 		this.sons = sons;
