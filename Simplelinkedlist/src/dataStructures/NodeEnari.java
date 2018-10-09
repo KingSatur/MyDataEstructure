@@ -19,8 +19,8 @@ wqerqwe
 rqwerwqerw
 rqwerqwerwerq
 rwqrqwerwqerqwr
-qwerqwerqwerqw
-	
+qwerqwerqwerqwwerwerwrqwrqwere
+	werweqttttttttttwerwerwqr
 	public void setSons(InterfaceCampiList<NodeEnari<T>> sons) {
 		this.sons = sons;
 	}
