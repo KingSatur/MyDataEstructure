@@ -66,8 +66,6 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 	
 	public NodeRedBlackTree<T, K> searchNode(K key, NodeRedBlackTree<T, K> node){
 		
-		NodeRedBlackTree<T, K> x = null;
-		
 		if(node.getKey().equals(key)) {
 			return node;
 		}
@@ -89,6 +87,8 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 				}
 			}			
 		}
+		
+		return null;
 		
 	}
 	
