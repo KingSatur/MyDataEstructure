@@ -20,7 +20,6 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 		this.height = height;
 	}
 
-
 	public NodeBinaryTree<T, K> getRoot() {
 		return root;
 	}
@@ -88,30 +87,32 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 						NodeBinaryTree<T, K> nodeAuxiliar1 = searchElementBefore(nodeAuxiliar.getKey(), node);
 						if(nodeAuxiliar1.under(nodeAuxiliar.getKey()) == -1) {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setRightSon(null);								
+								nodeAuxiliar1.setRightSon(nodeAuxiliar.getRightSon());								
 							}
 						}
 						else {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setLeftSon(null);								
+								nodeAuxiliar1.setLeftSon(nodeAuxiliar.getLeftSon());								
 							}
 						}
 						int c = 100;
@@ -121,30 +122,32 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 						NodeBinaryTree<T, K> nodeAuxiliar1 = searchElementBefore(nodeAuxiliar.getKey(), node);
 						if(nodeAuxiliar1.under(nodeAuxiliar.getKey()) == -1) {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setRightSon(null);								
+								nodeAuxiliar1.setRightSon(nodeAuxiliar.getRightSon());								
 							}
 						}
 						else {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setLeftSon(null);								
+								nodeAuxiliar1.setLeftSon(nodeAuxiliar.getLeftSon());								
 							}
 						}
 						int c = 100;
@@ -162,31 +165,33 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 						NodeBinaryTree<T, K> nodeAuxiliar1 = searchElementBefore(nodeAuxiliar.getKey(), node);
 						if(nodeAuxiliar1.under(nodeAuxiliar.getKey()) == 1) {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setLeftSon(null);								
+								nodeAuxiliar1.setLeftSon(nodeAuxiliar.getLeftSon());								
 							}
 							int x = 0;
 						}
 						else {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setRightSon(null);								
+								nodeAuxiliar1.setRightSon(nodeAuxiliar.getRightSon());								
 							}
 						}
 						int c = 100;
@@ -196,31 +201,33 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 						NodeBinaryTree<T, K> nodeAuxiliar1 = searchElementBefore(nodeAuxiliar.getKey(), node);
 						if(nodeAuxiliar1.under(nodeAuxiliar.getKey()) == 1) {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar1.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setLeftSon(null);								
+								nodeAuxiliar1.setLeftSon(nodeAuxiliar.getLeftSon());								
 							}
 							int x = 0;
 						}
 						else {
 							temporal.setKey(nodeAuxiliar.getKey());
+							temporal.setData(nodeAuxiliar.getData());
 							if(nodeAuxiliar1.equals(temporal)) {
 								if(temporal.under(nodeAuxiliar1.getKey()) == -1) {
-									temporal.setRightSon(null);
+									temporal.setRightSon(nodeAuxiliar.getRightSon());
 								}
 								else {
-									temporal.setLeftSon(null);
+									temporal.setLeftSon(nodeAuxiliar.getLeftSon());
 								}
 							}
 							else {
-								nodeAuxiliar1.setRightSon(null);								
+								nodeAuxiliar1.setRightSon(nodeAuxiliar.getRightSon());								
 							}
 							int x = 0;
 						}
@@ -235,31 +242,33 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 				NodeBinaryTree<T, K> nodeAuxiliar1 = searchElementBefore(nodeAuxiliar.getKey(), node);
 				if(nodeAuxiliar1.under(nodeAuxiliar.getKey()) == -1) {
 					root.setKey(nodeAuxiliar.getKey());
+					root.setData(nodeAuxiliar.getData());
 					if(nodeAuxiliar1.equals(root)) {
 						if(root.under(nodeAuxiliar1.getKey()) == -1) {
-							root.setRightSon(null);
+							root.setRightSon(nodeAuxiliar.getRightSon());
 						}
 						else {
-							root.setLeftSon(null);
+							root.setLeftSon(nodeAuxiliar.getLeftSon());
 						}
 					}
 					else {
-						nodeAuxiliar1.setRightSon(null);								
+						nodeAuxiliar1.setRightSon(nodeAuxiliar.getRightSon());								
 					}
 					int x = 0;
 				}
 				else {
 					root.setKey(nodeAuxiliar.getKey());
+					root.setData(nodeAuxiliar.getData());
 					if(nodeAuxiliar1.equals(root)) {
 						if(root.under(nodeAuxiliar1.getKey()) == -1) {
-							root.setRightSon(null);
+							root.setRightSon(nodeAuxiliar.getRightSon());
 						}
 						else {
-							root.setLeftSon(null);
+							root.setLeftSon(nodeAuxiliar.getLeftSon());
 						}
 					}
 					else {
-						nodeAuxiliar1.setLeftSon(null);								
+						nodeAuxiliar1.setLeftSon(nodeAuxiliar.getLeftSon());								
 					}
 					int x = 0;
 				}
@@ -270,31 +279,33 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 				NodeBinaryTree<T, K> nodeAuxiliar1 = searchElementBefore(nodeAuxiliar.getKey(), node);
 				if(nodeAuxiliar1.under(nodeAuxiliar.getKey()) == -1) {
 					root.setKey(nodeAuxiliar.getKey());
+					root.setData(nodeAuxiliar.getData());
 					if(nodeAuxiliar1.equals(root)) {
 						if(root.under(nodeAuxiliar1.getKey()) == -1) {
-							root.setRightSon(null);
+							root.setRightSon(nodeAuxiliar.getRightSon());
 						}
 						else {
-							root.setLeftSon(null);
+							root.setLeftSon(nodeAuxiliar.getLeftSon());
 						}
 					}
 					else {
-						nodeAuxiliar1.setRightSon(null);								
+						nodeAuxiliar1.setRightSon(nodeAuxiliar.getRightSon());								
 					}
 					int x = 0;
 				}
 				else {
 					root.setKey(nodeAuxiliar.getKey());
+					root.setData(nodeAuxiliar.getData());
 					if(nodeAuxiliar1.equals(root)) {
 						if(root.under(nodeAuxiliar1.getKey()) == -1) {
-							root.setRightSon(null);
+							root.setRightSon(nodeAuxiliar.getRightSon());
 						}
 						else {
-							root.setLeftSon(null);
+							root.setLeftSon(nodeAuxiliar.getLeftSon());
 						}
 					}
 					else {
-						nodeAuxiliar1.setLeftSon(null);								
+						nodeAuxiliar1.setLeftSon(nodeAuxiliar.getLeftSon());								
 					}
 					int x = 0;
 				}
@@ -403,25 +414,23 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 		
 		return null;
 	}
-
-
 	
-
 	public static void main(String[] args) {
-//		BinaryTree<Integer> arbol = new BinaryTree<Integer>();
-//		arbol.addElement(40, arbol.getRoot());
-//		arbol.addElement(30, arbol.getRoot());
-//		arbol.addElement(50, arbol.getRoot());
-//		arbol.addElement(20, arbol.getRoot());
-//		arbol.addElement(35, arbol.getRoot());
-//		arbol.addElement(45, arbol.getRoot());
-//		arbol.addElement(10, arbol.getRoot());
-//		arbol.addElement(24, arbol.getRoot());
-//		arbol.addElement(60, arbol.getRoot());
-//		arbol.addElement(31, arbol.getRoot());
-//		arbol.addElement(36, arbol.getRoot());
-//		arbol.delete(40, arbol.getRoot());
-//		int c = 100;
+		
+		BinaryTree<Player, Integer> jugadores = new BinaryTree<Player, Integer>();
+		jugadores.addElement(new Player("Juan david", 20), 20, jugadores.root);
+		jugadores.addElement(new Player("Cristiano", 10), 10, jugadores.root);
+		jugadores.addElement(new Player("Rodolfo", 50), 50, jugadores.root);
+		jugadores.addElement(new Player("Adolf", 30), 30, jugadores.root);
+		jugadores.addElement(new Player("J", 80), 80, jugadores.root);
+		jugadores.addElement(new Player("Juan", 90), 90, jugadores.root);
+		jugadores.addElement(new Player("David", 100), 100, jugadores.root);
+		jugadores.addElement(new Player("Michael", 6), 6, jugadores.root);
+		jugadores.delete(50, jugadores.root);
+		int j = 100;
+		int x = 100;
+		int c = j + x;
+		
 
 	}
 	
