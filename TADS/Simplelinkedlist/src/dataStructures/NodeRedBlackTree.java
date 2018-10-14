@@ -1,14 +1,14 @@
 package dataStructures;
 
-public class NodeRedBlackTree<T, K extends Comparable<K>>{
+public class NodeRedBlackTree<T, K extends Comparable<K>> implements Comparable<NodeRedBlackTree<T, K>>{
 
 	public static final String RED = "Red";
 	public static final String BLACK = "Black";
 	private String color;
 	private T data;
 	private K key;
-	private NodeRedBlackTree<T,K> leftNode;
-	private NodeRedBlackTree<T,K> rightNode;
+	private NodeRedBlackTree<T,K> leftSon;
+	private NodeRedBlackTree<T,K> rightSon;
 	
 	public NodeRedBlackTree(T data, K key) {
 		this.data = data;
@@ -17,6 +17,15 @@ public class NodeRedBlackTree<T, K extends Comparable<K>>{
 
 	public String getColor() {
 		return color;
+	}
+	
+	public boolean isSheet() {
+		if(leftSon == null && rightSon == null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public void setColor(String color) {
@@ -40,19 +49,75 @@ public class NodeRedBlackTree<T, K extends Comparable<K>>{
 	}
 
 	public NodeRedBlackTree<T, K> getLeftSon() {
-		return leftNode;
+		return leftSon;
 	}
 
 	public void setLeftSon(NodeRedBlackTree<T, K> leftNode) {
-		this.leftNode = leftNode;
+		this.leftSon = leftNode;
 	}
 
 	public NodeRedBlackTree<T, K> getRightSon() {
-		return rightNode;
+		return rightSon;
 	}
 
 	public void setRightSon(NodeRedBlackTree<T, K> rightNode) {
-		this.rightNode = rightNode;
+		this.rightSon = rightNode;
 	}
+	
+	public int under(K key) {
+		
+		if(this.sonNull() == 0) {
+			if(leftSon.getKey().equals(key)) {
+				return 1;
+			}
+			if(rightSon.getKey().equals(key)) {
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		}
+		else {
+			if(this.sonNull() == -1) {
+				if(leftSon.getKey().equals(key)) {
+					return 1;
+				}
+				else {
+					return 0;
+				}
+			}
+			else {
+				if(rightSon.getKey().equals(key)) {
+					return -1;
+				}
+				else {
+					return 0;
+				}
+			}
+		}
+		
+
+	}
+	
+	public int sonNull() {
+		
+		if(leftSon == null) {
+			return 1;
+		}
+		if(rightSon == null) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
+		
+		
+	}
+
+	@Override
+	public int compareTo(NodeRedBlackTree<T, K> o) {
+		return key.compareTo(o.getKey());
+	}
+	
 	
 }

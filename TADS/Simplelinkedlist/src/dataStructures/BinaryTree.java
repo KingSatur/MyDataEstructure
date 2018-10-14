@@ -1,5 +1,6 @@
 package dataStructures;
 
+import exceptions.ElementOutOfTreeException;
 import tda.InterfaceBinaryTreeSearch;
 
 public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTreeSearch<T,K>{
@@ -69,8 +70,6 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 		
 		
 	}
-
-	weqrwerwqerweqrqw
 	
 	@Override
 	public void delete(K key, NodeBinaryTree<T, K> node) {
@@ -384,8 +383,8 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 	}
 
 	@Override
-	public NodeBinaryTree<T, K> searchElementBefore(K key, NodeBinaryTree<T, K> node) {
-		
+	public NodeBinaryTree<T, K> searchElementBefore(K key, NodeBinaryTree<T, K> node){
+	
 		if(node.under(key) != 0) {
 			return node;
 		}

@@ -14,7 +14,6 @@ public class NodeBinaryTree<T, K extends Comparable<K>> implements Comparable<No
 		rightSon = null;
 	}
 	
-	
 	public K getKey() {
 		return key;
 	}
@@ -65,15 +64,37 @@ public class NodeBinaryTree<T, K extends Comparable<K>> implements Comparable<No
 
 	public int under(K key) {
 		
-		if(leftSon.getKey().equals(key)) {
-			return 1;
-		}
-		if(rightSon.getKey().equals(key)) {
-			return -1;
+		if(this.sonNull() == 0) {
+			if(leftSon.getKey().equals(key)) {
+				return 1;
+			}
+			if(rightSon.getKey().equals(key)) {
+				return -1;
+			}
+			else {
+				return 0;
+			}
 		}
 		else {
-			return 0;
+			if(this.sonNull() == -1) {
+				if(leftSon.getKey().equals(key)) {
+					return 1;
+				}
+				else {
+					return 0;
+				}
+			}
+			else {
+				if(rightSon.getKey().equals(key)) {
+					return -1;
+				}
+				else {
+					return 0;
+				}
+			}
 		}
+		
+
 	}
 	
 	public int sonNull() {

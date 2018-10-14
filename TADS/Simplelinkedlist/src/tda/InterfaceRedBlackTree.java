@@ -8,7 +8,7 @@ public interface InterfaceRedBlackTree<T, K extends Comparable<K>> {
 	
 	public void rightRotation(NodeRedBlackTree<T, K> node);
 	
-	public void addNode(T data, K key);
+	public void addNode(T data, K key, NodeRedBlackTree<T,K> node);
 	
 	public void deleteNode(K key);
 	
