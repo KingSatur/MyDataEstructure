@@ -85,10 +85,13 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 	public void addNode(T data, K key, NodeRedBlackTree<T,K> node) {
 		
 		NodeRedBlackTree<T, K> nod = new NodeRedBlackTree<T, K>(data, key);
+		nod.setColor(NodeRedBlackTree.RED);
 		
 		if(node == null) {
 			if(root == null) {
-				root = nod;				
+				root = nod;	
+				root.setColor(NodeRedBlackTree.RED);
+				
 			}
 		}
 		else {
@@ -121,6 +124,12 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 		}
 		
 	}
+	
+	public void addComplete(T data, K key, NodeRedBlackTree<T,K> node) {
+		addNode(data, key, node);
+		NodeRedBlackTree<T,K> nod = searchElement(key, root);
+		addFixUp(nod);
+	}
 
 	@Override
 	public void deleteNode(K key) {
@@ -129,15 +138,23 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 	}
 
 	@Override
-	public void searchUncle(K key) {
-		// TODO Auto-generated method stub
+	public NodeRedBlackTree<T,K> searchUncle(K key) {
+		
+		NodeRedBlackTree<T,K> father = searchElementBefore(key, root);
+		NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
+		if(grandFather.under(father.getKey()) == -1) {
+			return grandFather.getLeftSon();
+		}
+		else {
+			return grandFather.getRightSon();
+		}
+		
 		
 	}
 
 	@Override
-	public void searchGrandFather(K key) {
-		// TODO Auto-generated method stub
-		
+	public NodeRedBlackTree<T,K>  searchGrandFather(K key) {
+		return null;		
 	}
 	
 	public NodeRedBlackTree<T, K> searchNode(K key, NodeRedBlackTree<T, K> node){
@@ -237,19 +254,123 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 	public static void main(String[] args) {
 		
 		RedBlackTree<Player, Integer> jugadores = new RedBlackTree<Player, Integer>();
-		jugadores.addNode(new Player("Juan david", 20), 20, jugadores.root);
-		jugadores.addNode(new Player("Cristiano", 10), 10, jugadores.root);
-		jugadores.addNode(new Player("Rodolfo", 50), 50, jugadores.root);
-		jugadores.addNode(new Player("Adolf", 30), 30, jugadores.root);
-		jugadores.addNode(new Player("J", 80), 80, jugadores.root);
-		jugadores.addNode(new Player("Juan", 90), 90, jugadores.root);
-		jugadores.addNode(new Player("David", 100), 100, jugadores.root);
-		jugadores.addNode(new Player("Michael", 6), 6, jugadores.root);
-		NodeRedBlackTree<Player,Integer> mhj = jugadores.searchElement(10, jugadores.root);
-		jugadores.rightRotation(mhj);
+		jugadores.addComplete(new Player("Juan david", 20), 20, jugadores.root);
+		jugadores.addComplete(new Player("Cristiano", 10), 10, jugadores.root);
+		jugadores.addComplete(new Player("Rodolfo", 50), 50, jugadores.root);
+		jugadores.addComplete(new Player("Adolf", 30), 30, jugadores.root);
+//		jugadores.addNode(new Player("J", 80), 80, jugadores.root);
+//		jugadores.addNode(new Player("Juan", 90), 90, jugadores.root);
+//		jugadores.addNode(new Player("David", 100), 100, jugadores.root);
+//		jugadores.addNode(new Player("Michael", 6), 6, jugadores.root);
+//		NodeRedBlackTree<Player,Integer> mhj = jugadores.searchElement(10, jugadores.root);
+//		NodeRedBlackTree<Player,Integer> mhj1 = jugadores.searchUncle(100);
+//		jugadores.rightRotation(mhj);
 		int m = 100;
+		int x = 40;
+		int c = m + x;
 		
 		
+	}
+	
+
+	@Override
+	public void addFixUp(NodeRedBlackTree<T,K> nodeAdded) {
+		
+		NodeRedBlackTree<T,K> z = nodeAdded;
+		
+		if(z.equals(root)) {
+			if(z.getColor().equals(NodeRedBlackTree.RED)) {
+				root.changeColor();
+			}
+		}
+		else {
+			boolean salir = false;
+			while(searchElementBefore(z.getKey(), root) != null && (searchElementBefore(z.getKey(), root).getColor().equals(NodeRedBlackTree.RED)) && salir == false) {
+					//CASO EN EL PADRE SEA ROJO Y QUE EL TIO SEA NEGRO O NULL, SI ES NULO TAMBIEN SERA NEGRO
+					if(searchUncle(z.getKey()) == null || searchUncle(z.getKey()).getColor().equals(NodeRedBlackTree.BLACK)) {
+						NodeRedBlackTree<T,K> father = searchElementBefore(z.getKey(), root);
+						NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
+						//SI MI TIO NEGRO NULO ES HIJO IZQUIERDO
+						if(grandFather.sonNull() == -1) {
+							if(father.under(z.getKey()) == -1) {
+								//CASO 4, MI TIO ES NULO NEGRO IZQUIERDO, YO SOY HIJO DERECHO, SE FORMA LINEA
+								z = caseFour(z);
+							}
+							else {
+								z = caseThree(z);
+							}
+						}
+						//MI TIO NEGRO NULO ES HIJO DERECHO
+						else {
+							//SI MI TIO DERECHO NULO Y YO SOY HIJO IZQUIERDO
+							if(father.under(z.getKey()) == 1) {
+								z = caseFour(z);
+							}
+							//SI MI TIO DERECHO NEGRO NULO Y YO SOY HIJO DERECHO
+							else {
+								//CASO 3, TRIANGULO
+								z = caseThree(z);
+							}
+						}
+					}
+					if(searchUncle(z.getKey()).getColor().equals(NodeRedBlackTree.RED)) {
+						z = caseTwo(z);
+					}
+					if(z.equals(root)) {
+						if(z.getColor().equals(NodeRedBlackTree.RED)) {
+							z.changeColor();
+							salir = true;
+						}
+					
+					}
+				}
+			}	
+	
+	}
+	
+	public NodeRedBlackTree<T,K> caseTwo(NodeRedBlackTree<T,K> pointer) {
+		
+		NodeRedBlackTree<T,K> uncle = searchUncle(pointer.getKey());
+		NodeRedBlackTree<T,K> father = searchElementBefore(pointer.getKey(), root);
+		NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
+		uncle.setColor(NodeRedBlackTree.BLACK);
+		father.setColor(NodeRedBlackTree.BLACK);
+		grandFather.setColor(NodeRedBlackTree.RED);
+		
+		return grandFather;
+		
+	}
+	
+	public NodeRedBlackTree<T,K> caseThree(NodeRedBlackTree<T,K> pointer){
+		
+		NodeRedBlackTree<T,K> father = searchElementBefore(pointer.getKey(), root);
+		if(father.under(pointer.getKey()) == -1) {
+			leftRotation(pointer);
+		}
+		else {
+			rightRotation(pointer);
+		}
+			
+		return father;
+	}
+	
+	public NodeRedBlackTree<T,K> caseFour(NodeRedBlackTree<T,K> pointer){
+		
+		NodeRedBlackTree<T,K> father = searchElementBefore(pointer.getKey(), root);
+		NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
+		if(grandFather.under(father.getKey()) == -1) {
+			rightRotation(father);
+			father.changeColor();
+			grandFather.changeColor();
+			
+		}
+		else {
+			leftRotation(father);
+			father.changeColor();
+			grandFather.changeColor();
+		}
+		
+		return pointer;
 		
 	}
 

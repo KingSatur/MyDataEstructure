@@ -9,10 +9,31 @@ public class NodeRedBlackTree<T, K extends Comparable<K>> implements Comparable<
 	private K key;
 	private NodeRedBlackTree<T,K> leftSon;
 	private NodeRedBlackTree<T,K> rightSon;
+	private boolean nullNegro;
 	
 	public NodeRedBlackTree(T data, K key) {
 		this.data = data;
 		this.key = key;
+	}
+	
+	public boolean isNullNegro() {
+		return nullNegro;
+	}
+	
+	public void setNullNegro(boolean nullNegro) {
+		this.nullNegro = nullNegro;
+	}
+
+
+	public void changeColor() {
+		
+		if(color.equals(NodeRedBlackTree.BLACK)) {
+			color = NodeRedBlackTree.RED;
+		}
+		if(color.equals(NodeRedBlackTree.RED)) {
+			color = NodeRedBlackTree.BLACK;
+		}
+		
 	}
 
 	public String getColor() {
@@ -78,7 +99,7 @@ public class NodeRedBlackTree<T, K extends Comparable<K>> implements Comparable<
 			}
 		}
 		else {
-			if(this.sonNull() == -1) {
+			if(sonNull() == -1) {
 				if(leftSon.getKey().equals(key)) {
 					return 1;
 				}

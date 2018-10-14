@@ -12,9 +12,11 @@ public interface InterfaceRedBlackTree<T, K extends Comparable<K>> {
 	
 	public void deleteNode(K key);
 	
-	public void searchUncle(K key);
+	public NodeRedBlackTree<T,K>  searchUncle(K key);
 	
-	public void searchGrandFather(K key);
+	public NodeRedBlackTree<T,K>  searchGrandFather(K key);
+	
+	public void addFixUp(NodeRedBlackTree<T,K> nodeAdded);
 	
 	
 	
