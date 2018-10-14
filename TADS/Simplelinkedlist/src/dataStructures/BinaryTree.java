@@ -70,6 +70,8 @@ public class BinaryTree<T, K extends Comparable<K>> implements InterfaceBinaryTr
 		
 	}
 
+	weqrwerwqerweqrqw
+	
 	@Override
 	public void delete(K key, NodeBinaryTree<T, K> node) {
 		
