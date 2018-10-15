@@ -30,10 +30,9 @@ public class NodeRedBlackTree<T, K extends Comparable<K>> implements Comparable<
 		if(color.equals(NodeRedBlackTree.BLACK)) {
 			color = NodeRedBlackTree.RED;
 		}
-		if(color.equals(NodeRedBlackTree.RED)) {
-			color = NodeRedBlackTree.BLACK;
-		}
-		
+		else {
+			color = NodeRedBlackTree.BLACK;			
+		}		
 	}
 
 	public String getColor() {

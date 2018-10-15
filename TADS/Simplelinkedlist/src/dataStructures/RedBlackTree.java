@@ -258,9 +258,9 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 		jugadores.addComplete(new Player("Cristiano", 10), 10, jugadores.root);
 		jugadores.addComplete(new Player("Rodolfo", 50), 50, jugadores.root);
 		jugadores.addComplete(new Player("Adolf", 30), 30, jugadores.root);
-//		jugadores.addNode(new Player("J", 80), 80, jugadores.root);
-//		jugadores.addNode(new Player("Juan", 90), 90, jugadores.root);
-//		jugadores.addNode(new Player("David", 100), 100, jugadores.root);
+		jugadores.addComplete(new Player("J", 80), 80, jugadores.root);
+		jugadores.addComplete(new Player("Juan", 90), 90, jugadores.root);
+		jugadores.addComplete(new Player("David", 100), 100, jugadores.root);
 //		jugadores.addNode(new Player("Michael", 6), 6, jugadores.root);
 //		NodeRedBlackTree<Player,Integer> mhj = jugadores.searchElement(10, jugadores.root);
 //		NodeRedBlackTree<Player,Integer> mhj1 = jugadores.searchUncle(100);
@@ -291,7 +291,7 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 						NodeRedBlackTree<T,K> father = searchElementBefore(z.getKey(), root);
 						NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
 						//SI MI TIO NEGRO NULO ES HIJO IZQUIERDO
-						if(grandFather.sonNull() == -1) {
+						if(grandFather.sonNull() == 1) {
 							if(father.under(z.getKey()) == -1) {
 								//CASO 4, MI TIO ES NULO NEGRO IZQUIERDO, YO SOY HIJO DERECHO, SE FORMA LINEA
 								z = caseFour(z);
@@ -358,7 +358,7 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 		
 		NodeRedBlackTree<T,K> father = searchElementBefore(pointer.getKey(), root);
 		NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
-		if(grandFather.under(father.getKey()) == -1) {
+		if(grandFather.under(father.getKey()) == 1) {
 			rightRotation(father);
 			father.changeColor();
 			grandFather.changeColor();
