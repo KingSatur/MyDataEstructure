@@ -254,23 +254,35 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 	public static void main(String[] args) {
 		
 		RedBlackTree<Player, Integer> jugadores = new RedBlackTree<Player, Integer>();
-		jugadores.addComplete(new Player("Juan david", 20), 20, jugadores.root);
-		jugadores.addComplete(new Player("Cristiano", 10), 10, jugadores.root);
-		jugadores.addComplete(new Player("Rodolfo", 50), 50, jugadores.root);
-		jugadores.addComplete(new Player("Adolf", 30), 30, jugadores.root);
-		jugadores.addComplete(new Player("J", 80), 80, jugadores.root);
-		jugadores.addComplete(new Player("Juan", 90), 90, jugadores.root);
-		jugadores.addComplete(new Player("David", 100), 100, jugadores.root);
-//		jugadores.addNode(new Player("Michael", 6), 6, jugadores.root);
+//		for(int i = 0; i < 10000000; i ++) {
+//			jugadores.addComplete(new Player("Player" + (i + 1), (i + 1)*2) ,(i + 1)*2, jugadores.root);
+//		}
+//		jugadores.addComplete(new Player("Juan david", 20), 20, jugadores.root);
+//		jugadores.addComplete(new Player("Cristiano", 10), 10, jugadores.root);
+//		jugadores.addComplete(new Player("Rodolfo", 50), 50, jugadores.root);
+//		jugadores.addComplete(new Player("Adolf", 30), 30, jugadores.root);
+//		jugadores.addComplete(new Player("J", 80), 80, jugadores.root);
+//		jugadores.addComplete(new Player("Juan", 90), 90, jugadores.root);
+//		jugadores.addComplete(new Player("David", 100), 100, jugadores.root);
+//		jugadores.addComplete(new Player("Michael", 6), 6, jugadores.root);
+//		jugadores.addComplete(new Player("Clone", 300), 300, jugadores.root);
+//		jugadores.addComplete(new Player("Adolf5", 21), 21, jugadores.root);
+//		jugadores.addComplete(new Player("J4", 4), 4, jugadores.root);
+//		jugadores.addComplete(new Player("Juan13", 13), 13, jugadores.root);
+//		jugadores.addComplete(new Player("David17", 17), 17, jugadores.root);
+//		jugadores.addComplete(new Player("Michael51", 51), 51, jugadores.root);
+//		jugadores.addComplete(new Player("Clone87", 87), 87, jugadores.root);
+		
 //		NodeRedBlackTree<Player,Integer> mhj = jugadores.searchElement(10, jugadores.root);
 //		NodeRedBlackTree<Player,Integer> mhj1 = jugadores.searchUncle(100);
 //		jugadores.rightRotation(mhj);
+		System.out.println((2*19) / 5);
 		int m = 100;
 		int x = 40;
 		int c = m + x;
 		
 		
-	}
+}
 	
 
 	@Override
@@ -290,6 +302,7 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 					if(searchUncle(z.getKey()) == null || searchUncle(z.getKey()).getColor().equals(NodeRedBlackTree.BLACK)) {
 						NodeRedBlackTree<T,K> father = searchElementBefore(z.getKey(), root);
 						NodeRedBlackTree<T,K> grandFather = searchElementBefore(father.getKey(), root);
+						NodeRedBlackTree<T,K> uncle = searchUncle(z.getKey());
 						//SI MI TIO NEGRO NULO ES HIJO IZQUIERDO
 						if(grandFather.sonNull() == 1) {
 							if(father.under(z.getKey()) == -1) {
@@ -301,7 +314,7 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 							}
 						}
 						//MI TIO NEGRO NULO ES HIJO DERECHO
-						else {
+						else if(grandFather.sonNull() == -1){
 							//SI MI TIO DERECHO NULO Y YO SOY HIJO IZQUIERDO
 							if(father.under(z.getKey()) == 1) {
 								z = caseFour(z);
@@ -312,9 +325,35 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 								z = caseThree(z);
 							}
 						}
+						else {
+							//SI MI TIO ES NO NULO Y ES HIJO DERECHO DE MI ABUELO
+							if(grandFather.under(uncle.getKey()) == -1) {
+								//SI MI TIO ES NO NULO Y ES HIJO DERECHO DE MI ABUELO, SOY HIJO DERECHO DE MI PAPA.
+								if(father.under(z.getKey()) == -1) {
+									z = caseThree(z);
+								}
+								//SI MI TIO ES NO NULO Y ES HIJO DERECHO DE MI ABUELO, SOY HIJO IZQUIERDO DE MI PAPA.
+								else {
+									z = caseFour(z);
+								}
+							}
+							//SI MI TIO ES NO NULO Y ES HIJO IZQUIERDO DE MI ABUELO
+							else {
+								//SI MI TIO ES NO NULO Y ES HIJO IZQUIERDO DE MI ABUELO, SOY HIJO DERECHO DE MI PAPA.
+								if(father.under(z.getKey()) == -1) {
+									z = caseFour(z);
+								}
+								//SI MI TIO ES NO NULO Y ES HIJO IZQUIERDO DE MI ABUELO, SOY HIJO IZQUIERDO DE MI PAPA.
+								else {
+									z = caseThree(z);
+								}
+							}
+						}
 					}
-					if(searchUncle(z.getKey()).getColor().equals(NodeRedBlackTree.RED)) {
-						z = caseTwo(z);
+					if(searchElementBefore(searchElementBefore(z.getKey(), root).getKey(), root) != null) {
+						if(searchUncle(z.getKey()).getColor().equals(NodeRedBlackTree.RED)) {
+							z = caseTwo(z);							
+						}
 					}
 					if(z.equals(root)) {
 						if(z.getColor().equals(NodeRedBlackTree.RED)) {
@@ -373,6 +412,36 @@ public class RedBlackTree<T, K extends Comparable<K>> implements InterfaceRedBla
 		return pointer;
 		
 	}
+	
+	public String inOrderDer(NodeRedBlackTree<T,K> node) {
+	
+		String h = "";
+		
+		if(root.getRightSon() != null) {
+			h += root.getRightSon().getData() + ", " + root.getRightSon().getColor();
+			return h;
+		}
+		else {
+			return h;
+		}		
+	}
 
+	public String inOrderLadoIzq(NodeRedBlackTree<T,K> node) {
+		
+		if(root.getLeftSon() == null) {
+			return root.getLeftSon().getData() + ", " + root.getLeftSon().getColor();
+		}
+		else {
+			return inOrderDer(node.getLeftSon());
+		}		
+	}
+		
+		
+	public void imprimir(NodeRedBlackTree<T, K> node) {
+		
+		System.out.println(node);
+		
+	}
+	
 	
 }
