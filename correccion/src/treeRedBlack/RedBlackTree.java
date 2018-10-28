@@ -3,9 +3,12 @@ package treeRedBlack;
 import general.Player;
 import general.TreeWithRotation;
 import tda.InterfaceRedBlackTree;
+import treeBinarySearch.NodeBinaryTree;
 
 public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T,K> implements InterfaceRedBlackTree<T,K> {
 
+	private NodeRedBlack<T,K> nodeWithDoubleBlack;
+	
 	@Override
 	public void addNode(T data, K key) {
 		
@@ -17,8 +20,146 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 	
 	@Override
 	public void deleteNode(K key) {
-		// TODO Auto-generated method stub
+			
+		NodeRedBlack<T,K> elementToDelete = (NodeRedBlack<T, K>) searchElement(key);
 		
+		//CASO 1, EL NODO QUE VOY A ELIMINAR ES HOJA
+		if(elementToDelete.isSheet()) {
+			NodeRedBlack<T,K> father = (NodeRedBlack<T, K>) searchElementBefore(key);
+			if(father == null) {
+				root = null;
+			}
+			else {
+				if(father.under(key) == -1) {
+					if(elementToDelete.getColor().equals(NodeRedBlack.RED)) {
+						father.setRightSon(null);
+					}
+					else {
+						NodeRedBlack<T,K> m = new NodeRedBlack<T,K>(null, null);
+						m.setDoubleBlack(true);
+						father.setRightSon(m);
+						nodeWithDoubleBlack = m;
+					}
+					
+				}
+				else {
+					if(elementToDelete.getColor().equals(NodeRedBlack.RED)) {
+						father.setLeftSon(null);
+					}
+					else {
+						NodeRedBlack<T,K> m = new NodeRedBlack<T,K>(null, null);
+						m.setDoubleBlack(true);
+						father.setLeftSon(m);
+						nodeWithDoubleBlack = m;
+					}
+				}
+			}
+		}
+		//CASO 2, EL NODO QUE VOY A ELIMINAR, TIENE 2 HIJOS O UN HIJO
+		else {
+			NodeRedBlack<T,K> father = (NodeRedBlack<T, K>) searchElementBefore(key);
+			//EL NODO QUE VOY A ELIMINAR SOLO TIENE EL HIJO DERECHO
+			if(elementToDelete.sonNull() == 1) {
+				if(father.under(key) == -1) {
+					String color  = elementToDelete.getColor();
+					if(((NodeRedBlack<T,K>)elementToDelete.getRightSon()).getColor().equals(NodeRedBlack.BLACK)) {
+						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setDoubleBlack(true);
+						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
+						father.setRightSon(elementToDelete.getRightSon());
+						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getRightSon();
+					}
+					else {
+						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
+						father.setRightSon(elementToDelete.getRightSon());
+					}
+				}
+				if(father.under(key) == 1) {
+					String color = elementToDelete.getColor();
+					if(((NodeRedBlack<T,K>)elementToDelete.getRightSon()).getColor().equals(NodeRedBlack.BLACK)) {
+						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setDoubleBlack(true);
+						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
+						father.setLeftSon(elementToDelete.getRightSon());
+						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getLeftSon();
+					}
+					else {
+						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
+						father.setLeftSon(elementToDelete.getRightSon());
+					}
+				}
+			}
+			//EL NODO QUE VOY A ELIMINAR SOLO TIENE EL HIJO IZQUIERDO
+			if(elementToDelete.sonNull() == -1) {
+				if(father.under(key) == -1) {
+					String color  = elementToDelete.getColor();
+					if(((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).getColor().equals(NodeRedBlack.BLACK)) {
+						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setDoubleBlack(true);
+						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
+						father.setRightSon(elementToDelete.getLeftSon());
+						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getRightSon();
+					}
+					else {
+						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
+						father.setRightSon(elementToDelete.getLeftSon());
+					}
+				}
+				if(father.under(key) == 1) {
+					String color  = elementToDelete.getColor();
+					if(((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).getColor().equals(NodeRedBlack.BLACK)) {
+						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setDoubleBlack(true);
+						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
+						father.setLeftSon(elementToDelete.getLeftSon());
+						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getLeftSon();
+					}
+					else {
+						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
+						father.setLeftSon(elementToDelete.getLeftSon());
+					}
+				}
+			}
+			//EL NODO QUE VOY A ELIMINAR TIENE DOS HIJOS
+			else if(elementToDelete.sonNull() == 0){
+				NodeRedBlack<T,K> minimumRight = (NodeRedBlack<T, K>) minimum(elementToDelete.getRightSon());
+				NodeRedBlack<T,K> beforeMinimum = (NodeRedBlack<T, K>) searchElementBefore(minimumRight.getKey());
+				elementToDelete.setData(minimumRight.getData());
+				elementToDelete.setKey(minimumRight.getKey());
+				if(beforeMinimum.getKey().equals(minimumRight.getKey())) {
+					if(minimumRight.getColor().equals(NodeRedBlack.RED)) {
+						elementToDelete.setRightSon(minimumRight.getRightSon());
+					}
+					else {
+						NodeRedBlack<T,K> m = new NodeRedBlack<T,K>(null, null);
+						m.setDoubleBlack(true);
+						elementToDelete.setRightSon(m);
+						nodeWithDoubleBlack = m;
+					}
+				}
+				else {
+					if(minimumRight.isSheet()) {
+						if(minimumRight.getColor().equals(NodeRedBlack.RED)) {
+							beforeMinimum.setLeftSon(null);	
+						}
+						else {
+							NodeRedBlack<T,K> m = new NodeRedBlack<T,K>(null, null);
+							m.setDoubleBlack(true);
+							beforeMinimum.setLeftSon(m);
+							nodeWithDoubleBlack = m;
+							
+						}
+					}
+					else {
+						if(minimumRight.getColor().equals(NodeRedBlack.RED)) {
+							beforeMinimum.setLeftSon(minimumRight.getRightSon());	
+						}
+						else {
+							beforeMinimum.setLeftSon(minimumRight.getRightSon());
+							((NodeRedBlack<T,K>)beforeMinimum.getLeftSon()).setDoubleBlack(true);
+							nodeWithDoubleBlack = (NodeRedBlack<T,K>)beforeMinimum.getLeftSon();
+						}
+					}
+				}
+				
+			}
+		}
 	}
 
 	@Override
@@ -124,6 +265,10 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		
 	}
 	
+
+	
+	
+	
 	public NodeRedBlack<T,K> caseTwo(NodeRedBlack<T,K> pointer) {
 		
 		NodeRedBlack<T,K> uncle = searchUncle(pointer.getKey());
@@ -173,26 +318,25 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 	public static void main(String[] args) {
 		
 		RedBlackTree<Player, Integer> jugadores = new RedBlackTree<Player, Integer>();
-		for(int i = 0; i < 1000000; i ++) {
-			jugadores.addNode(new Player("Player" + (i + 1), (i + 1)*2) ,(i + 1)*2);
-		}
-//		jugadores.addNode(new Player("Juan david", 20), 20);
-//		jugadores.addNode(new Player("Cristiano", 10), 10);
-//		jugadores.addNode(new Player("Rodolfo", 50), 50);
-//		jugadores.addNode(new Player("Adolf", 30), 30);
-//		jugadores.addNode(new Player("J", 80), 80);
-//		jugadores.addNode(new Player("Juan", 90), 90);
-//		jugadores.addNode(new Player("David", 100), 100);
-//		jugadores.addNode(new Player("Michael", 6), 6);
-//		jugadores.addNode(new Player("Clone", 300), 300);
-//		jugadores.addNode(new Player("Adolf5", 21), 21);
-//		jugadores.addNode(new Player("J4", 4), 4);
-//		jugadores.addNode(new Player("Juan13", 13), 13);
-//		jugadores.addNode(new Player("David17", 17), 17);
-//		jugadores.addNode(new Player("Michael51", 51), 51);
-//		jugadores.addNode(new Player("Clone87", 87), 87);
-		
-//		NodeRedBlackTree<Player,Integer> mhj = jugadores.searchElement(10, jugadores.root);
+//		for(int i = 0; i < 1000000; i ++) {
+//			jugadores.addNode(new Player("Player" + (i + 1), (i + 1)*2) ,(i + 1)*2);
+//		}
+		jugadores.addNode(new Player("Juan david", 20), 20);
+		jugadores.addNode(new Player("Cristiano", 10), 10);
+		jugadores.addNode(new Player("Rodolfo", 50), 50);
+		jugadores.addNode(new Player("Adolf", 30), 30);
+		jugadores.addNode(new Player("J", 80), 80);
+		jugadores.addNode(new Player("Juan", 90), 90);
+		jugadores.addNode(new Player("David", 100), 100);
+		jugadores.addNode(new Player("Michael", 6), 6);
+		jugadores.addNode(new Player("Clone", 300), 300);
+		jugadores.addNode(new Player("Adolf5", 21), 21);
+		jugadores.addNode(new Player("J4", 4), 4);
+		jugadores.addNode(new Player("Juan13", 13), 13);
+		jugadores.addNode(new Player("David17", 17), 17);
+		jugadores.addNode(new Player("Michael51", 51), 51);
+		jugadores.addNode(new Player("Clone87", 87), 87);
+		jugadores.deleteNode(100);
 //		NodeRedBlackTree<Player,Integer> mhj1 = jugadores.searchUncle(100);
 //		jugadores.rightRotation(mhj);
 		System.out.println((2*19) / 5);
@@ -200,6 +344,12 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		int x = 40;
 		int c = m + x;
 		
+		
+	}
+
+	@Override
+	public void deleteFixUp(K key) {
+		// TODO Auto-generated method stub
 		
 	}
 

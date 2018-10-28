@@ -14,6 +14,7 @@ public interface InterfaceRedBlackTree<T, K extends Comparable<K>> {
 	
 	public void addFixUp(NodeRedBlack<T,K> nodeAdded);
 	
+	public void deleteFixUp(K key);
 	
 	
 }

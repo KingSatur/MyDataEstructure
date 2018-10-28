@@ -4,6 +4,7 @@ import treeBinarySearch.NodeBinaryTree;
 
 public class NodeRedBlack<T,K extends Comparable<K>> extends NodeBinaryTree<T,K> {
 	
+	private boolean doubleBlack;
 	public static final String RED = "RED";
 	public static final String BLACK = "BLACK";
 	private String color;
@@ -11,6 +12,16 @@ public class NodeRedBlack<T,K extends Comparable<K>> extends NodeBinaryTree<T,K>
 	public NodeRedBlack(T data, K key) {
 		super(data, key);
 	}
+	
+	public boolean isDoubleBlack() {
+		return doubleBlack;
+	}
+
+	public void setDoubleBlack(boolean doubleBlack) {
+		this.doubleBlack = doubleBlack;
+	}
+
+
 
 	public String getColor() {
 		return color;
