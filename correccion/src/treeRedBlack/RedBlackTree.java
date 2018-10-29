@@ -8,6 +8,13 @@ import treeBinarySearch.NodeBinaryTree;
 public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T,K> implements InterfaceRedBlackTree<T,K> {
 
 	private NodeRedBlack<T,K> nodeWithDoubleBlack;
+	private NodeRedBlack<T,K> nodeFatherOfDoubleBlack;
+	
+	public RedBlackTree() {
+		super();
+		nodeWithDoubleBlack = null;
+		nodeFatherOfDoubleBlack = null;
+	}
 	
 	@Override
 	public void addNode(T data, K key) {
@@ -39,6 +46,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						m.setDoubleBlack(true);
 						father.setRightSon(m);
 						nodeWithDoubleBlack = m;
+						nodeFatherOfDoubleBlack = father;
 					}
 					
 				}
@@ -51,6 +59,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						m.setDoubleBlack(true);
 						father.setLeftSon(m);
 						nodeWithDoubleBlack = m;
+						nodeFatherOfDoubleBlack = father;
 					}
 				}
 			}
@@ -67,6 +76,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
 						father.setRightSon(elementToDelete.getRightSon());
 						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getRightSon();
+						nodeFatherOfDoubleBlack = father;
 					}
 					else {
 						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
@@ -80,6 +90,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
 						father.setLeftSon(elementToDelete.getRightSon());
 						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getLeftSon();
+						nodeFatherOfDoubleBlack = father;
 					}
 					else {
 						((NodeRedBlack<T,K>)elementToDelete.getRightSon()).setColor(color);
@@ -96,6 +107,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
 						father.setRightSon(elementToDelete.getLeftSon());
 						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getRightSon();
+						nodeFatherOfDoubleBlack = father;
 					}
 					else {
 						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
@@ -109,6 +121,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
 						father.setLeftSon(elementToDelete.getLeftSon());
 						nodeWithDoubleBlack = (NodeRedBlack<T, K>) father.getLeftSon();
+						nodeFatherOfDoubleBlack = father;
 					}
 					else {
 						((NodeRedBlack<T,K>)elementToDelete.getLeftSon()).setColor(color);
@@ -131,6 +144,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						m.setDoubleBlack(true);
 						elementToDelete.setRightSon(m);
 						nodeWithDoubleBlack = m;
+						nodeFatherOfDoubleBlack = elementToDelete;
 					}
 				}
 				else {
@@ -143,7 +157,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 							m.setDoubleBlack(true);
 							beforeMinimum.setLeftSon(m);
 							nodeWithDoubleBlack = m;
-							
+							nodeFatherOfDoubleBlack = beforeMinimum;
 						}
 					}
 					else {
@@ -154,6 +168,8 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 							beforeMinimum.setLeftSon(minimumRight.getRightSon());
 							((NodeRedBlack<T,K>)beforeMinimum.getLeftSon()).setDoubleBlack(true);
 							nodeWithDoubleBlack = (NodeRedBlack<T,K>)beforeMinimum.getLeftSon();
+							nodeFatherOfDoubleBlack = elementToDelete;
+							nodeFatherOfDoubleBlack = beforeMinimum;
 						}
 					}
 				}
@@ -203,22 +219,22 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 						if(grandFather.sonNull() == 1) {
 							if(father.under(z.getKey()) == -1) {
 								//CASO 4, MI TIO ES NULO NEGRO IZQUIERDO, YO SOY HIJO DERECHO, SE FORMA LINEA
-								z = caseFour(z);
+								z = caseFourAdd(z);
 							}
 							else {
-								z = caseThree(z);
+								z = caseThreeAdd(z);
 							}
 						}
 						//MI TIO NEGRO NULO ES HIJO DERECHO
 						else if(grandFather.sonNull() == -1){
 							//SI MI TIO DERECHO NULO Y YO SOY HIJO IZQUIERDO
 							if(father.under(z.getKey()) == 1) {
-								z = caseFour(z);
+								z = caseFourAdd(z);
 							}
 							//SI MI TIO DERECHO NEGRO NULO Y YO SOY HIJO DERECHO
 							else {
 								//CASO 3, TRIANGULO
-								z = caseThree(z);
+								z = caseThreeAdd(z);
 							}
 						}
 						else {
@@ -226,29 +242,29 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 							if(grandFather.under(uncle.getKey()) == -1) {
 								//SI MI TIO ES NO NULO Y ES HIJO DERECHO DE MI ABUELO, SOY HIJO DERECHO DE MI PAPA.
 								if(father.under(z.getKey()) == -1) {
-									z = caseThree(z);
+									z = caseThreeAdd(z);
 								}
 								//SI MI TIO ES NO NULO Y ES HIJO DERECHO DE MI ABUELO, SOY HIJO IZQUIERDO DE MI PAPA.
 								else {
-									z = caseFour(z);
+									z = caseFourAdd(z);
 								}
 							}
 							//SI MI TIO ES NO NULO Y ES HIJO IZQUIERDO DE MI ABUELO
 							else {
 								//SI MI TIO ES NO NULO Y ES HIJO IZQUIERDO DE MI ABUELO, SOY HIJO DERECHO DE MI PAPA.
 								if(father.under(z.getKey()) == -1) {
-									z = caseFour(z);
+									z = caseFourAdd(z);
 								}
 								//SI MI TIO ES NO NULO Y ES HIJO IZQUIERDO DE MI ABUELO, SOY HIJO IZQUIERDO DE MI PAPA.
 								else {
-									z = caseThree(z);
+									z = caseThreeAdd(z);
 								}
 							}
 						}
 					}
 					if(searchElementBefore(searchElementBefore(z.getKey()).getKey()) != null) {
 						if(searchUncle(z.getKey()).getColor().equals(NodeRedBlack.RED)) {
-							z = caseTwo(z);							
+							z = caseTwoAdd(z);							
 						}
 					}
 					if(z.equals(root)) {
@@ -265,11 +281,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		
 	}
 	
-
-	
-	
-	
-	public NodeRedBlack<T,K> caseTwo(NodeRedBlack<T,K> pointer) {
+	public NodeRedBlack<T,K> caseTwoAdd(NodeRedBlack<T,K> pointer) {
 		
 		NodeRedBlack<T,K> uncle = searchUncle(pointer.getKey());
 		NodeRedBlack<T,K> father = (NodeRedBlack<T, K>) searchElementBefore(pointer.getKey());
@@ -282,7 +294,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		
 	}
 	
-	public NodeRedBlack<T,K> caseThree(NodeRedBlack<T,K> pointer){
+	public NodeRedBlack<T,K> caseThreeAdd(NodeRedBlack<T,K> pointer){
 		
 		NodeRedBlack<T,K> father = (NodeRedBlack<T, K>) searchElementBefore(pointer.getKey());
 		if(father.under(pointer.getKey()) == -1) {
@@ -295,7 +307,7 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		return father;
 	}
 	
-	public NodeRedBlack<T,K> caseFour(NodeRedBlack<T,K> pointer){
+	public NodeRedBlack<T,K> caseFourAdd(NodeRedBlack<T,K> pointer){
 		
 		NodeRedBlack<T,K> father = (NodeRedBlack<T, K>) searchElementBefore(pointer.getKey());
 		NodeRedBlack<T,K> grandFather = (NodeRedBlack<T, K>) searchElementBefore(father.getKey());
@@ -313,6 +325,167 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		
 		return pointer;
 		
+	}
+	
+	@Override
+	public void deleteFixUp(K key) {
+		
+		boolean back = false;
+		while(!back) {
+			
+			if((((NodeRedBlack<T,K>)root)).isDoubleBlack()) {
+				caseOneDelete();
+			}
+			else {
+				if(nodeFatherOfDoubleBlack.getColor().equals(NodeRedBlack.BLACK)) {
+					if(nodeFatherOfDoubleBlack.getLeftSon().equals(nodeWithDoubleBlack)) {
+						if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).getColor().equals(NodeRedBlack.BLACK)){
+							if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getLeftSon()).getColor().equals(NodeRedBlack.RED)) {
+								caseFiveDelete();
+							}
+							
+							if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getLeftSon()).getColor().equals(nodeFatherOfDoubleBlack.getColor()) && ((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getRightSon()).getColor().equals(NodeRedBlack.RED)) {
+								caseSixDelete();
+							}
+							else {
+								caseThreeDelete();
+							}	
+						}
+						else {
+							caseTwoDelete();
+						}
+					}
+					if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)) {
+						if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).getColor().equals(NodeRedBlack.BLACK)){
+							if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getRightSon()).getColor().equals(NodeRedBlack.RED)) {
+								caseFiveDelete();
+							}
+							if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getRightSon()).getColor().equals(nodeFatherOfDoubleBlack.getColor()) && ((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getLeftSon()).getColor().equals(NodeRedBlack.RED)) {
+								caseSixDelete();
+							}
+							else {
+								caseThreeDelete();
+							}	
+						}
+						else {
+							caseTwoDelete();
+						}
+					}
+				}
+				else {
+					if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)) {
+						if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).getColor().equals(NodeRedBlack.BLACK)){
+							if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getRightSon()).getColor().equals(nodeFatherOfDoubleBlack.getColor()) && ((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getLeftSon()).getColor().equals(NodeRedBlack.RED)){
+								caseSixDelete();
+							}
+							else {
+								caseFourDelete();
+							}
+						}
+					}
+					else {
+						if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).getColor().equals(NodeRedBlack.BLACK)){
+							if(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getLeftSon()).getColor().equals(nodeFatherOfDoubleBlack.getColor()) && ((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getRightSon()).getColor().equals(NodeRedBlack.RED)){
+								caseSixDelete();
+							}
+							else {
+								caseFourDelete();
+							}
+						}
+					}
+					
+				}
+				
+			}
+			
+			
+			
+			
+			
+		}
+		
+		
+	}
+	
+	//CASO 1, EL NODO ES LA RAIZ, TIENE DOBLE NEGRO, LO QUITAMOS Y QUEDA NEGRA, CASO TERMINAL
+	public void caseOneDelete() {
+		((NodeRedBlack<T,K>) root).setDoubleBlack(false);
+	}
+	
+	public void caseTwoDelete() {
+		
+		if(nodeFatherOfDoubleBlack.getLeftSon().equals(nodeWithDoubleBlack)) {
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).setColor(nodeFatherOfDoubleBlack.getColor());
+			nodeFatherOfDoubleBlack.changeColor();
+			leftRotation(nodeFatherOfDoubleBlack.getRightSon());
+		}
+		if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)) {
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).setColor(nodeFatherOfDoubleBlack.getColor());
+			nodeFatherOfDoubleBlack.changeColor();
+			rightRotation(nodeFatherOfDoubleBlack.getLeftSon());
+		}
+	}
+	
+	public void caseThreeDelete() {
+		
+		if(nodeFatherOfDoubleBlack.getLeftSon().equals(nodeWithDoubleBlack)) {
+			nodeFatherOfDoubleBlack.setDoubleBlack(true);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).setDoubleBlack(false);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).changeColor();
+		}
+		if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)){
+			nodeFatherOfDoubleBlack.setDoubleBlack(true);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).setDoubleBlack(false);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).changeColor();
+		}
+		
+	}
+	
+	public void caseFourDelete() {
+		
+		if(nodeFatherOfDoubleBlack.getLeftSon().equals(nodeWithDoubleBlack)) {
+			nodeFatherOfDoubleBlack.changeColor();
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).setDoubleBlack(false);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).changeColor();
+		}
+		if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)){
+			nodeFatherOfDoubleBlack.changeColor();
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).setDoubleBlack(false);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).changeColor();
+		}
+		
+		
+	}
+	
+	public void caseFiveDelete() {
+		
+		if(nodeFatherOfDoubleBlack.getLeftSon().equals(nodeWithDoubleBlack)) {
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).changeColor();
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getLeftSon()).changeColor();
+			rightRotation(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getLeftSon()));
+		}
+		if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)){
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).changeColor();
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getRightSon()).changeColor();
+			leftRotation(((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getLeftSon()));
+		}
+	}
+	
+	public void caseSixDelete() {
+		
+		if(nodeFatherOfDoubleBlack.getLeftSon().equals(nodeWithDoubleBlack)) {
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon()).setColor(nodeFatherOfDoubleBlack.getColor());
+			nodeFatherOfDoubleBlack.setColor(NodeRedBlack.BLACK);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon().getRightSon()).setColor(NodeRedBlack.BLACK);
+			leftRotation((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getRightSon());
+		}
+		if(nodeFatherOfDoubleBlack.getRightSon().equals(nodeWithDoubleBlack)){
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon()).setColor(nodeFatherOfDoubleBlack.getColor());
+			nodeFatherOfDoubleBlack.setColor(NodeRedBlack.BLACK);
+			((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon().getLeftSon()).setColor(NodeRedBlack.BLACK);
+			rightRotation((NodeRedBlack<T,K>)nodeFatherOfDoubleBlack.getLeftSon());
+		}
+	
 	}
 	
 	public static void main(String[] args) {
@@ -336,7 +509,11 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		jugadores.addNode(new Player("David17", 17), 17);
 		jugadores.addNode(new Player("Michael51", 51), 51);
 		jugadores.addNode(new Player("Clone87", 87), 87);
-		jugadores.deleteNode(100);
+		jugadores.addNode(new Player("Juan13", 45), 45);
+		jugadores.addNode(new Player("David17", 69), 69);
+		jugadores.addNode(new Player("Michael51", 34), 34);
+		jugadores.addNode(new Player("Clone87", 29), 29);
+		jugadores.deleteNode(80);
 //		NodeRedBlackTree<Player,Integer> mhj1 = jugadores.searchUncle(100);
 //		jugadores.rightRotation(mhj);
 		System.out.println((2*19) / 5);
@@ -347,13 +524,106 @@ public class RedBlackTree<T, K extends Comparable<K>> extends TreeWithRotation<T
 		
 	}
 
-	@Override
-	public void deleteFixUp(K key) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
